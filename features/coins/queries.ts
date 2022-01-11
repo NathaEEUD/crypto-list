@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import { dehydrate, QueryClient, useQuery } from 'react-query'
 
 import { API_ENDPOINTS, API_INSTANCE } from 'services'
 
@@ -25,4 +25,13 @@ export const useGetCoins = () => {
   return useQuery<any>(coinsKeys.lists(), () => fetchCoins(url), {
     staleTime: 3600000,
   })
+}
+
+export const prefetchCoins = async () => {
+  const queryClient = new QueryClient()
+  const url = API_ENDPOINTS.coins
+
+  await queryClient.prefetchQuery(coinsKeys.lists(), () => fetchCoins(url))
+
+  return dehydrate(queryClient)
 }

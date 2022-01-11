@@ -1,11 +1,25 @@
-import type { NextPage } from 'next'
+import type {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next'
 
 import Head from 'next/head'
 
 import { Home } from '@templates'
-import { useGetCoins } from 'features/coins/queries'
+import { prefetchCoins, useGetCoins } from 'features/coins'
 
-const Index: NextPage = () => {
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {
+      dehydratedState: await prefetchCoins(),
+    },
+  }
+}
+
+const Index: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = () => {
   const { data, isLoading } = useGetCoins()
 
   return (
