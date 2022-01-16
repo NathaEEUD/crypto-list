@@ -1,2 +1,2 @@
 export { coinsKeys, prefetchCoins, useGetCoins } from './queries'
-export type { ICoinsResponse } from './types'
+export type { ICoinData, ICoinsResponse } from './types'

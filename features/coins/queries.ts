@@ -22,7 +22,7 @@ export const fetchCoins = async (url: string): Promise<ICoinsResponse> => {
 export const useGetCoins = () => {
   const url = API_ENDPOINTS.coins
 
-  return useQuery<any>(coinsKeys.lists(), () => fetchCoins(url), {
+  return useQuery(coinsKeys.lists(), () => fetchCoins(url), {
     staleTime: 3600000,
   })
 }

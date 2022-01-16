@@ -6,27 +6,28 @@ const config: ColorModeOptions = {
 }
 
 const breakpoints = createBreakpoints({
-  xs: "320px",
-  sm: "575px",
-  md: "768px",
-  lg: "960px",
-  xl: "1200px",
-});
+  xs: '320px',
+  sm: '575px',
+  md: '768px',
+  lg: '960px',
+  xl: '1200px',
+})
 
 const styles = {
   global: {
-    "*, *:before, *:after": {
-      boxSizing: "border-box",
+    '*, *:before, *:after': {
+      boxSizing: 'border-box',
     },
-    "html, body": {
-      boxSizing: "border-box",
-      minHeight: "100vh",
+    'html, body': {
+      boxSizing: 'border-box',
+      minHeight: '100vh',
+      backgroundColor: 'gray.800',
     },
   },
-};
+}
 
 export default extendTheme({
   config,
   breakpoints,
   styles,
-});
+})

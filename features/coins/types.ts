@@ -1,9 +1,9 @@
 export interface ICoinsResponse {
-  data: Array<ICoinsData>
+  data: Array<ICoinData>
   info: ICoinsInfo
 }
 
-interface ICoinsData {
+export interface ICoinData {
   id: string
   symbol: string
   name: string

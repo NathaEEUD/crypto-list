@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 
 import { Sidebar } from '@organisms'
@@ -10,7 +10,7 @@ interface Props {
 
 export const Layout: React.FC<Props> = props => {
   return (
-    <Box as="main" h="100vh" overflowY="scroll" position="relative">
+    <Flex h="100vh" overflowY="scroll" position="relative">
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Crypto list" name="description" />
@@ -27,7 +27,9 @@ export const Layout: React.FC<Props> = props => {
 
       <Sidebar />
 
-      {props.children}
-    </Box>
+      <Box h="100%" w="full">
+        {props.children}
+      </Box>
+    </Flex>
   )
 }
