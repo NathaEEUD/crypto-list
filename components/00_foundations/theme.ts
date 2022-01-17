@@ -22,6 +22,7 @@ const styles = {
       boxSizing: 'border-box',
       minHeight: '100vh',
       backgroundColor: 'gray.800',
+      overscrollBehaviorY: 'none',
     },
   },
 }

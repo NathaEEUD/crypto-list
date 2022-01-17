@@ -6,7 +6,7 @@ interface Props {
   symbol: string
   name: string
   rank: number
-  price_usd: string
+  price: string
 }
 
 export const SidebarItem: React.FC<Props> = ({
@@ -14,7 +14,7 @@ export const SidebarItem: React.FC<Props> = ({
   symbol,
   name,
   rank,
-  price_usd,
+  price,
 }) => {
   return (
     <Box
@@ -40,7 +40,9 @@ export const SidebarItem: React.FC<Props> = ({
         w="full"
         zIndex="base"
       >
-        <Heading size="4xl">{symbol}</Heading>
+        <Heading size="4xl" textTransform="uppercase">
+          {symbol}
+        </Heading>
       </Flex>
 
       <HStack
@@ -56,7 +58,7 @@ export const SidebarItem: React.FC<Props> = ({
 
         <VStack align="flex-start" spacing="0.5" zIndex="inherit">
           <Heading size="lg">{name}</Heading>
-          <Text>{price_usd}</Text>
+          <Text>{price}</Text>
         </VStack>
       </HStack>
     </Box>

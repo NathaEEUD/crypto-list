@@ -2,7 +2,7 @@ import { dehydrate, QueryClient, useQuery } from 'react-query'
 
 import { API_ENDPOINTS, API_INSTANCE } from 'services'
 
-import { ICoinsResponse } from '.'
+import { CoinUtility, ICoinsResponse } from '.'
 
 export const coinsKeys = {
   all: ['coins'] as const,
@@ -16,7 +16,7 @@ export const fetchCoins = async (url: string): Promise<ICoinsResponse> => {
     method: 'GET',
   })
 
-  return response.data
+  return CoinUtility.mapAll(response.data)
 }
 
 export const useGetCoins = () => {

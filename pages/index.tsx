@@ -20,6 +20,8 @@ const Index: NextPage<
 > = () => {
   const { data, isLoading } = useGetCoins()
 
+  console.log(data)
+
   return <Home data={data} isLoading={isLoading} />
 }
 

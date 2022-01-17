@@ -1,1 +1,1 @@
-export { API_ENDPOINTS, API_INSTANCE } from './api'
+export { API, API_ENDPOINTS, API_INSTANCE } from './api'

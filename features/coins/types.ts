@@ -1,9 +1,11 @@
-export interface ICoinsResponse {
-  data: Array<ICoinData>
-  info: ICoinsInfo
+export type ICoinsResponse = Array<ICoinData>
+
+interface ICoinloreResponse {
+  data: Array<ICoinloreData>
+  info: ICoinloreInfo
 }
 
-export interface ICoinData {
+export interface ICoinloreData {
   id: string
   symbol: string
   name: string
@@ -22,7 +24,59 @@ export interface ICoinData {
   msupply: string
 }
 
-interface ICoinsInfo {
+interface ICoinloreInfo {
   coins_num: number
   time: number
+}
+
+export type ICoingeckoResponse = Array<ICoingeckoData>
+
+export interface ICoingeckoData {
+  ath: number
+  ath_change_percentage: number
+  ath_date: string
+  atl: number
+  atl_change_percentage: number
+  atl_date: string
+  circulating_supply: number
+  current_price: number
+  fully_diluted_valuation: number
+  high_24h: number
+  id: string
+  image: string
+  last_updated: string
+  low_24h: number
+  market_cap: number
+  market_cap_change_24h: number
+  market_cap_change_percentage_24h: number
+  market_cap_rank: number
+  max_supply: number
+  name: string
+  price_change_24h: number
+  price_change_percentage_24h: number
+  roi: null
+  symbol: string
+  total_supply: number
+  total_volume: number
+}
+
+export interface ICoinData {
+  change: number
+  id: string
+  image: string
+  marketCap: string
+  name: string
+  price: string
+  rank: number
+  supply: string
+  symbol: string
+  volume: string
+}
+
+export interface ICoinUtility {
+  formatPercent: (value: number) => string
+  formatUSD: (value: number) => string
+  getByID: (id: string, cryptos: ICoinsResponse) => ICoinData | null
+  map: (data: ICoingeckoData) => ICoinData
+  mapAll: (data: Array<ICoingeckoData>) => ICoinsResponse
 }

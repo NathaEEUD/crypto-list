@@ -16,8 +16,8 @@ export const Sidebar: React.FC = () => {
       w="full"
     >
       {data &&
-        data.data?.length > 0 &&
-        data.data.map(coin => <SidebarItem key={coin.id} {...coin} />)}
+        data?.length > 0 &&
+        data.map(coin => <SidebarItem key={coin.id} {...coin} />)}
     </VStack>
   )
 }

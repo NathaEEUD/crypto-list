@@ -13,14 +13,14 @@ export const Home: React.FC<Props> = ({ data, isLoading }) => {
     <Container as="main" color="white" pos="fixed">
       <Skeleton h="full" isLoaded={!isLoading} w="full">
         {data &&
-          data.data?.length > 0 &&
-          data.data.map(
+          data?.length > 0 &&
+          data.map(
             coin =>
-              coin.id === '90' && (
+              coin.id === 'bitcoin' && (
                 <>
                   <h1>{coin.name}</h1>
                   <h2>{coin.rank}</h2>
-                  <h3>{coin.price_usd}</h3>
+                  <h3>{coin.price}</h3>
                 </>
               ),
           )}
