@@ -1,13 +1,17 @@
-import { Box, Flex, Heading, HStack, Text, VStack } from '@chakra-ui/react'
+import {
+  Avatar,
+  Box,
+  Flex,
+  Heading,
+  HStack,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 import React from 'react'
 
-interface Props {
-  id: string
-  symbol: string
-  name: string
-  rank: number
-  price: string
-}
+import { ICoinData } from '@features/coins'
+
+type Props = Partial<ICoinData>
 
 export const SidebarItem: React.FC<Props> = ({
   id,
@@ -15,6 +19,7 @@ export const SidebarItem: React.FC<Props> = ({
   name,
   rank,
   price,
+  image,
 }) => {
   return (
     <Box
@@ -26,6 +31,7 @@ export const SidebarItem: React.FC<Props> = ({
       p="4"
       pl="0"
       position="relative"
+      role="group"
       w="full"
     >
       <Flex
@@ -33,31 +39,39 @@ export const SidebarItem: React.FC<Props> = ({
         borderBottomRightRadius="full"
         borderTopRightRadius="full"
         h="full"
-        left="0.1%"
+        justifyContent="space-between"
+        left="0"
         opacity="0.1"
         position="absolute"
+        pr="4"
         top="0"
         w="full"
         zIndex="base"
       >
-        <Heading size="4xl" textTransform="uppercase">
+        <Heading fontSize="7em" size="4xl" textTransform="uppercase">
           {symbol}
         </Heading>
+
+        <Avatar name={name} size="xl" src={image} />
       </Flex>
 
       <HStack
+        _groupHover={{ width: '96%' }}
         bgColor="whiteAlpha.100"
         borderRadius="inherit"
         px="10"
         py="8"
-        spacing="8"
-        w="90%"
+        spacing="4"
+        transition="all 0.4s ease-in-out"
+        w="88%"
         zIndex="docked"
       >
         <Heading size="md">{rank}</Heading>
 
+        <Avatar name={name} size="md" src={image} />
+
         <VStack align="flex-start" spacing="0.5" zIndex="inherit">
-          <Heading size="lg">{name}</Heading>
+          <Heading size="md">{name}</Heading>
           <Text>{price}</Text>
         </VStack>
       </HStack>

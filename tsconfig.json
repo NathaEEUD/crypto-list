@@ -16,6 +16,7 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
+      "@features/*": ["features/*"],
       "@services": ["services/index.ts"],
       "@foundations": ["components/00_foundations/index.ts"],
       "@atoms": ["components/01_atoms/index.ts"],
