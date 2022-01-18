@@ -7,6 +7,7 @@ import React from 'react'
 
 import { theme } from '@foundations'
 import { Layout } from '@templates'
+import { AppProvider } from '@services'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState(
@@ -24,9 +25,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <AppProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </AppProvider>
         </Hydrate>
         <ReactQueryDevtools />
       </QueryClientProvider>

@@ -1,5 +1,7 @@
 import { ICoinUtility } from './types'
 
+import { ICoinData } from '.'
+
 export const CoinUtility: ICoinUtility = {
   formatPercent: value =>
     (value / 100).toLocaleString('en-US', {
@@ -11,7 +13,7 @@ export const CoinUtility: ICoinUtility = {
       style: 'currency',
       currency: 'USD',
     }),
-  getByID: (id, cryptos) => cryptos.find(crypto => crypto.id === id) || null,
+  getByID: (id, coins) => coins.find(coin => coin.id === id) as ICoinData,
   map: data => ({
     change: data.price_change_percentage_24h,
     id: data.id,

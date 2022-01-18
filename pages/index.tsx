@@ -4,8 +4,11 @@ import type {
   NextPage,
 } from 'next'
 
+import React from 'react'
+
 import { Home } from '@templates'
-import { prefetchCoins, useGetCoins } from 'features/coins'
+import { CoinUtility, prefetchCoins, useGetCoins } from 'features/coins'
+import { useApp } from '@services'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
@@ -18,11 +21,28 @@ export const getServerSideProps: GetServerSideProps = async () => {
 const Index: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = () => {
-  const { data, isLoading } = useGetCoins()
+  const { data, isLoading, isSuccess } = useGetCoins()
+  const { state, dispatch } = useApp()
 
-  console.log(data)
+  React.useEffect(() => {
+    if (isSuccess && data) {
+      dispatch({
+        type: 'UPDATE_COIN_ID',
+        payload: data[0].id,
+      })
+    }
+  }, [])
 
-  return <Home data={data} isLoading={isLoading} />
+  return (
+    <>
+      {data && (
+        <Home
+          data={CoinUtility.getByID(state.coinId, data)}
+          isLoading={isLoading}
+        />
+      )}
+    </>
+  )
 }
 
 export default Index

@@ -11,15 +11,20 @@ import React from 'react'
 
 import { ICoinData } from '@features/coins'
 
-type Props = Partial<ICoinData>
+type Props = Partial<ICoinData> & {
+  selected: boolean
+  onClick: (id: string) => void
+}
 
 export const SidebarItem: React.FC<Props> = ({
-  id,
+  selected,
   symbol,
   name,
   rank,
   price,
+  id,
   image,
+  onClick,
 }) => {
   return (
     <Box
@@ -33,6 +38,7 @@ export const SidebarItem: React.FC<Props> = ({
       position="relative"
       role="group"
       w="full"
+      onClick={() => onClick(id as string)}
     >
       <Flex
         align="center"
@@ -57,13 +63,13 @@ export const SidebarItem: React.FC<Props> = ({
 
       <HStack
         _groupHover={{ width: '96%' }}
-        bgColor="whiteAlpha.100"
+        bgColor={!selected ? 'whiteAlpha.100' : 'whiteAlpha.300'}
         borderRadius="inherit"
         px="10"
         py="8"
         spacing="4"
         transition="all 0.4s ease-in-out"
-        w="88%"
+        w={!selected ? '88%' : '96%'}
         zIndex="docked"
       >
         <Heading size="md">{rank}</Heading>

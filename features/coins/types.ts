@@ -76,7 +76,7 @@ export interface ICoinData {
 export interface ICoinUtility {
   formatPercent: (value: number) => string
   formatUSD: (value: number) => string
-  getByID: (id: string, cryptos: ICoinsResponse) => ICoinData | null
+  getByID: (id: string, coins: ICoinsResponse) => ICoinData
   map: (data: ICoingeckoData) => ICoinData
   mapAll: (data: Array<ICoingeckoData>) => ICoinsResponse
 }

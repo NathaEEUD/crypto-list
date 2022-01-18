@@ -1,30 +1,23 @@
 import { Container, Skeleton } from '@chakra-ui/react'
 import React from 'react'
 
-import { ICoinsResponse } from 'features/coins'
+import { ICoinData } from 'features/coins'
 
 interface Props {
-  data: ICoinsResponse | undefined
+  data: ICoinData | undefined
   isLoading?: boolean
 }
 
-export const Home: React.FC<Props> = ({ data, isLoading }) => {
+export const Home: React.FC<Props> = ({ data }) => {
   return (
-    <Container as="main" color="white" pos="fixed">
-      <Skeleton h="full" isLoaded={!isLoading} w="full">
-        {data &&
-          data?.length > 0 &&
-          data.map(
-            coin =>
-              coin.id === 'bitcoin' && (
-                <>
-                  <h1>{coin.name}</h1>
-                  <h2>{coin.rank}</h2>
-                  <h3>{coin.price}</h3>
-                </>
-              ),
-          )}
-      </Skeleton>
+    <Container as="main" color="white" h="full" pos="fixed" w="full">
+      {data && (
+        <>
+          <h1>{data.name}</h1>
+          <h2>{data.rank}</h2>
+          <h3>{data.price}</h3>
+        </>
+      )}
     </Container>
   )
 }
