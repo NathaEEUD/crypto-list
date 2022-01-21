@@ -1,6 +1,6 @@
 import React from 'react'
 
-export type AppActionKind = 'UPDATE_COIN_ID'
+export type AppActionKind = 'UPDATE_COIN_ID' | 'TOGGLE_SIDEBAR_COLLAPSE'
 
 type Action = {
   type: AppActionKind
@@ -11,6 +11,7 @@ type Dispatch = (action: Action) => void
 
 type State = {
   coinId: string
+  sidebarCollapsed: boolean
 }
 
 type AppProviderProps = { children: React.ReactNode }
@@ -21,6 +22,7 @@ const AppContext = React.createContext<
 
 const INITIAL_STATE: State = {
   coinId: '',
+  sidebarCollapsed: false,
 }
 
 function AppReducer(state: State, action: Action) {
@@ -29,6 +31,13 @@ function AppReducer(state: State, action: Action) {
       return {
         ...state,
         coinId: action.payload,
+      }
+    }
+
+    case 'TOGGLE_SIDEBAR_COLLAPSE': {
+      return {
+        ...state,
+        sidebarCollapsed: !state.sidebarCollapsed,
       }
     }
 

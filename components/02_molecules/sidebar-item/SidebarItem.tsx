@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  BoxProps,
   Flex,
   Heading,
   HStack,
@@ -8,8 +9,29 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import React from 'react'
+import { motion } from 'framer-motion'
 
 import { ICoinData } from '@features/coins'
+import { useApp } from '@services'
+
+const MotionBox = motion<BoxProps>(Box)
+
+const variants = {
+  open: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      delay: 0.3,
+      type: 'spring',
+      stiffness: 400,
+      damping: 40,
+    },
+  },
+  closed: {
+    x: -100,
+    opacity: 0,
+  },
+}
 
 type Props = Partial<ICoinData> & {
   selected: boolean
@@ -26,8 +48,11 @@ export const SidebarItem: React.FC<Props> = ({
   image,
   onClick,
 }) => {
+  const { state } = useApp()
+
   return (
-    <Box
+    <MotionBox
+      animate={!state.sidebarCollapsed ? 'open' : 'closed'}
       as="button"
       bgColor="gray.900"
       borderBottomRightRadius="full"
@@ -37,6 +62,7 @@ export const SidebarItem: React.FC<Props> = ({
       pl="0"
       position="relative"
       role="group"
+      variants={variants}
       w="full"
       onClick={() => onClick(id as string)}
     >
@@ -54,7 +80,12 @@ export const SidebarItem: React.FC<Props> = ({
         w="full"
         zIndex="base"
       >
-        <Heading fontSize="7em" size="4xl" textTransform="uppercase">
+        <Heading
+          isTruncated
+          fontSize={{ base: '3em', sm: '4em', md: '3em', lg: '4em', xl: '5em' }}
+          size="4xl"
+          textTransform="uppercase"
+        >
           {symbol}
         </Heading>
 
@@ -65,8 +96,8 @@ export const SidebarItem: React.FC<Props> = ({
         _groupHover={{ width: '96%' }}
         bgColor={!selected ? 'whiteAlpha.100' : 'whiteAlpha.300'}
         borderRadius="inherit"
-        px="10"
-        py="8"
+        px={{ base: '6', lg: '10' }}
+        py={{ base: '6', lg: '8' }}
         spacing="4"
         transition="all 0.4s ease-in-out"
         w={!selected ? '88%' : '96%'}
@@ -77,10 +108,16 @@ export const SidebarItem: React.FC<Props> = ({
         <Avatar name={name} size="md" src={image} />
 
         <VStack align="flex-start" spacing="0.5" zIndex="inherit">
-          <Heading size="md">{name}</Heading>
-          <Text>{price}</Text>
+          <Heading
+            fontSize={{ base: 'sm', lg: 'md' }}
+            size="md"
+            textAlign="left"
+          >
+            {name}
+          </Heading>
+          <Text fontSize={{ base: 'xs', lg: 'sm' }}>{price}</Text>
         </VStack>
       </HStack>
-    </Box>
+    </MotionBox>
   )
 }

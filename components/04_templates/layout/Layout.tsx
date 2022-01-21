@@ -1,16 +1,50 @@
-import React from 'react'
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, BoxProps, HStack, useMediaQuery } from '@chakra-ui/react'
 import Head from 'next/head'
+import React from 'react'
+import { motion } from 'framer-motion'
 
-import { Sidebar } from '@organisms'
+import { Header, Sidebar } from '@organisms'
+import { useApp } from '@services'
+
+const MotionBox = motion<BoxProps>(Box)
+
+const baseVariants = {
+  open: {
+    width: '0%',
+    opacity: 0,
+  },
+  closed: {
+    width: '100%',
+    opacity: 1,
+    transition: {
+      delay: 0.4,
+    },
+  },
+}
+
+const mdVariants = {
+  open: {
+    width: '60%',
+  },
+  closed: {
+    width: '100%',
+    transition: {
+      delay: 0.4,
+    },
+  },
+}
 
 interface Props {
   children: React.ReactNode
 }
 
 export const Layout: React.FC<Props> = props => {
+  const { state } = useApp()
+
+  const [mqWidderThan768] = useMediaQuery(['(min-width: 768px)'])
+
   return (
-    <Flex h="100vh" overflowY="scroll" position="relative">
+    <Box h="100vh" maxW="100vw" overflowY="scroll" position="relative">
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Crypto list" name="description" />
@@ -25,11 +59,19 @@ export const Layout: React.FC<Props> = props => {
         <title>Crypto List</title>
       </Head>
 
-      <Sidebar />
+      <Header bg="gray.800" pos="sticky" top="0" zIndex="sticky" />
 
-      <Box h="100%" w="full">
-        {props.children}
-      </Box>
-    </Flex>
+      <HStack h="full" w="full">
+        <Sidebar maxW={{ base: 'full', md: '40%' }} />
+
+        <MotionBox
+          animate={!state.sidebarCollapsed ? 'open' : 'closed'}
+          h="full"
+          variants={!mqWidderThan768 ? baseVariants : mdVariants}
+        >
+          {props.children}
+        </MotionBox>
+      </HStack>
+    </Box>
   )
 }

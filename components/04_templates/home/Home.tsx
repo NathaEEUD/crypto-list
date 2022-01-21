@@ -19,7 +19,14 @@ interface Props {
 
 export const Home: React.FC<Props> = ({ data }) => {
   return (
-    <Box as="main" color="white" h="full" p="4" pos="fixed" w="70%">
+    <Box
+      as="main"
+      color="white"
+      h="calc(100% - 60px)"
+      p="4"
+      pos="fixed"
+      w="inherit"
+    >
       {data && (
         <>
           <StatGroup flexDirection="column" gap="4">
@@ -62,7 +69,7 @@ export const Home: React.FC<Props> = ({ data }) => {
             as="h1"
             bottom="0"
             filter="blur(6px)"
-            fontSize="20em"
+            fontSize={{ base: '8em', md: '12em', lg: '16em' }}
             opacity="0.15"
             pos="absolute"
             right="0"
