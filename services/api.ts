@@ -14,16 +14,19 @@ const API_PAGE = 1
 
 const API_ENDPOINTS_LIST = {
   coinlore: {
+    list: '',
     coins: `/tickers`,
     coin: `/ticker`,
   },
   coingecko: {
+    list: `/coins/list`,
     coins: `/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${API_PER_PAGE}&page=${API_PAGE}&sparkline=false`,
     coin: `/ticker`,
   },
 }
 
 export const API_ENDPOINTS = {
+  list: API_ENDPOINTS_LIST[API].list,
   coins: API_ENDPOINTS_LIST[API].coins,
   coin: API_ENDPOINTS_LIST[API].coin,
 }

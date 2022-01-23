@@ -17,6 +17,7 @@
     "incremental": true,
     "paths": {
       "@features/*": ["features/*"],
+      "@hooks": ["hooks/index.ts"],
       "@services": ["services/index.ts"],
       "@foundations": ["components/00_foundations/index.ts"],
       "@atoms": ["components/01_atoms/index.ts"],

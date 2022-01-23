@@ -2,7 +2,7 @@ import { VStack, Box, BoxProps, PropsOf, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 import { motion } from 'framer-motion'
 
-import { useGetCoins } from 'features/coins'
+import { useGetCoinMarkets } from 'features/coins'
 import { SidebarItem } from '@molecules'
 import { useApp } from '@services'
 
@@ -29,7 +29,7 @@ const variants = {
 type Props = PropsOf<typeof Box>
 
 export const Sidebar: React.FC<Props> = props => {
-  const { data } = useGetCoins()
+  const { data } = useGetCoinMarkets()
   const { state, dispatch } = useApp()
 
   const [mqWidderThan768] = useMediaQuery(['(min-width: 768px)'])

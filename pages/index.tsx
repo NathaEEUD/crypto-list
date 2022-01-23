@@ -6,14 +6,18 @@ import type {
 
 import React from 'react'
 
-import { Home } from '@templates'
-import { CoinUtility, prefetchCoins, useGetCoins } from 'features/coins'
 import { useApp } from '@services'
+import { Home } from '@templates'
+import {
+  CoinUtility,
+  prefetchInitialData,
+  useGetCoinMarkets,
+} from 'features/coins'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
-      dehydratedState: await prefetchCoins(),
+      dehydratedState: await prefetchInitialData(),
     },
   }
 }
@@ -21,23 +25,23 @@ export const getServerSideProps: GetServerSideProps = async () => {
 const Index: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = () => {
-  const { data, isLoading, isSuccess } = useGetCoins()
+  const { data: coins, isLoading, isSuccess } = useGetCoinMarkets()
   const { state, dispatch } = useApp()
 
   React.useEffect(() => {
-    if (isSuccess && data) {
+    if (isSuccess && coins) {
       dispatch({
         type: 'UPDATE_COIN_ID',
-        payload: data[0].id,
+        payload: coins[0].id,
       })
     }
   }, [])
 
   return (
     <>
-      {data && (
+      {coins && (
         <Home
-          data={CoinUtility.getByID(state.coinId, data)}
+          data={CoinUtility.getByID(state.coinId, coins)}
           isLoading={isLoading}
         />
       )}

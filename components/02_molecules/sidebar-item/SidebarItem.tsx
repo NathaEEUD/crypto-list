@@ -8,8 +8,8 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import React from 'react'
 import { motion } from 'framer-motion'
+import React from 'react'
 
 import { ICoinData } from '@features/coins'
 import { useApp } from '@services'
