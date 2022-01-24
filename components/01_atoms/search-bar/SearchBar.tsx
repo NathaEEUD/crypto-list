@@ -4,10 +4,10 @@ import React from 'react'
 
 interface Props {
   query: string
-  setQuery: (value: string) => void
+  onChange: React.ChangeEventHandler<HTMLInputElement>
 }
 
-export const SearchBar: React.FC<Props> = ({ query, setQuery }) => {
+export const SearchBar: React.FC<Props> = ({ query, onChange }) => {
   return (
     <>
       <chakra.input
@@ -27,7 +27,7 @@ export const SearchBar: React.FC<Props> = ({ query, setQuery }) => {
           outline: 0,
         }}
         value={query}
-        onChange={e => setQuery(e.target.value)}
+        onChange={onChange}
       />
 
       <Center h="68px" left={7} pos="absolute">

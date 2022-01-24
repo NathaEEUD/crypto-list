@@ -1,6 +1,9 @@
 import React from 'react'
 
-export type AppActionKind = 'UPDATE_COIN_ID' | 'TOGGLE_SIDEBAR_COLLAPSE'
+export type AppActionKind =
+  | 'UPDATE_COIN_ID'
+  | 'UPDATE_SEARCH_QUERY'
+  | 'TOGGLE_SIDEBAR_COLLAPSE'
 
 type Action = {
   type: AppActionKind
@@ -11,6 +14,7 @@ type Dispatch = (action: Action) => void
 
 type State = {
   coinId: string
+  searchQuery: string
   sidebarCollapsed: boolean
 }
 
@@ -22,6 +26,7 @@ const AppContext = React.createContext<
 
 const INITIAL_STATE: State = {
   coinId: '',
+  searchQuery: '',
   sidebarCollapsed: false,
 }
 
@@ -31,6 +36,13 @@ function AppReducer(state: State, action: Action) {
       return {
         ...state,
         coinId: action.payload,
+      }
+    }
+
+    case 'UPDATE_SEARCH_QUERY': {
+      return {
+        ...state,
+        searchQuery: action.payload,
       }
     }
 

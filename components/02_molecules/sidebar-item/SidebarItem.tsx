@@ -48,6 +48,7 @@ export const SidebarItem: React.FC<Props> = ({
   image,
   onClick,
 }) => {
+  // App context
   const { state } = useApp()
 
   return (

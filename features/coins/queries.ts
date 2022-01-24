@@ -2,7 +2,7 @@ import { dehydrate, QueryClient, useQuery } from 'react-query'
 
 import { API_ENDPOINTS, API_INSTANCE } from 'services'
 
-import { CoinUtility, ICoingeckoResponse } from '.'
+import { CoinUtility, ICoingeckoResponse, ICoingeckoData } from '.'
 
 export const coinsKeys = {
   all: ['coins'] as const,
@@ -11,7 +11,9 @@ export const coinsKeys = {
   detail: (id: string) => [...coinsKeys.all, id] as const,
 }
 
-export const fetchCoins = async (url: string): Promise<ICoingeckoResponse> => {
+export const fetchCoins = async (
+  url: string,
+): Promise<ICoingeckoResponse & ICoingeckoData> => {
   const response = await API_INSTANCE({
     url,
     method: 'GET',
@@ -50,6 +52,17 @@ export const useGetCoinLists = () => {
   const url = API_ENDPOINTS.list
 
   return useQuery(coinsKeys.list(), () => fetchCoins(url), {
+    staleTime: Infinity,
+  })
+}
+
+// Get the coin detail
+export const useGetCoin = (id: string, enabled: boolean) => {
+  const url = `${API_ENDPOINTS.coin}/${id}`
+
+  return useQuery(coinsKeys.detail(id), () => fetchCoins(url), {
+    enabled,
     staleTime: 3600000,
+    select: (data: ICoingeckoData) => CoinUtility.map(data),
   })
 }

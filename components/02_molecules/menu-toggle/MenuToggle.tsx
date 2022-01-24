@@ -14,12 +14,14 @@ const MotionButton = motion<ButtonProps>(Button)
 export const MenuToggle: React.FC<Props> = ({ toggle, isOpen }) => (
   <MotionButton
     animate={isOpen ? 'open' : 'closed'}
-    colorScheme="whiteAlpha"
+    colorScheme="teal"
+    size="sm"
     variant="outline"
     onClick={toggle}
   >
     <svg height="20" viewBox="0 0 20 20" width="20">
       <MotionPath
+        stroke="#319795"
         variants={{
           closed: { d: 'M 2 2.5 L 20 2.5' },
           open: { d: 'M 3 16.5 L 17 2.5' },
@@ -27,6 +29,7 @@ export const MenuToggle: React.FC<Props> = ({ toggle, isOpen }) => (
       />
       <MotionPath
         d="M 2 9.423 L 20 9.423"
+        stroke="#319795"
         transition={{ duration: 0.1 }}
         variants={{
           closed: { opacity: 1 },
@@ -34,6 +37,7 @@ export const MenuToggle: React.FC<Props> = ({ toggle, isOpen }) => (
         }}
       />
       <MotionPath
+        stroke="#319795"
         variants={{
           closed: { d: 'M 2 16.346 L 20 16.346' },
           open: { d: 'M 3 2.5 L 17 16.346' },

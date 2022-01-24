@@ -11,6 +11,7 @@ import { Home } from '@templates'
 import {
   CoinUtility,
   prefetchInitialData,
+  useGetCoin,
   useGetCoinMarkets,
 } from 'features/coins'
 
@@ -25,25 +26,36 @@ export const getServerSideProps: GetServerSideProps = async () => {
 const Index: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = () => {
-  const { data: coins, isLoading, isSuccess } = useGetCoinMarkets()
+  // App context
   const { state, dispatch } = useApp()
 
+  // Get the list of the coin markets
+  const { data: coinMarkets, isLoading, isSuccess } = useGetCoinMarkets()
+
+  // Always select the first coin after the first render
   React.useEffect(() => {
-    if (isSuccess && coins) {
+    if (isSuccess && coinMarkets) {
       dispatch({
         type: 'UPDATE_COIN_ID',
-        payload: coins[0].id,
+        payload: coinMarkets[0].id,
       })
     }
   }, [])
 
+  // Verify if the selected coin data is in cache
+  const coinIdExistsInMarkets =
+    isSuccess && coinMarkets && CoinUtility.getByID(state.coinId, coinMarkets)
+
+  // Disable the query if the is encountered in cache, else execute the query
+  const { data: coinData } = useGetCoin(
+    state.coinId,
+    !Boolean(coinIdExistsInMarkets),
+  )
+
   return (
     <>
-      {coins && (
-        <Home
-          data={CoinUtility.getByID(state.coinId, coins)}
-          isLoading={isLoading}
-        />
+      {coinMarkets && (
+        <Home data={coinIdExistsInMarkets || coinData} isLoading={isLoading} />
       )}
     </>
   )

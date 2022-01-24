@@ -31,6 +31,14 @@ interface ICoinloreInfo {
 
 export type ICoingeckoResponse = Array<ICoingeckoData>
 
+interface ICoingeckoMarketData {
+  price_change_percentage_24h: number
+  circulating_supply: number
+  current_price: { usd: number }
+  market_cap: { usd: number }
+  total_volume: { usd: number }
+}
+
 export interface ICoingeckoData {
   ath: number
   ath_change_percentage: number
@@ -43,9 +51,10 @@ export interface ICoingeckoData {
   fully_diluted_valuation: number
   high_24h: number
   id: string
-  image: string
+  image: string & { small: string }
   last_updated: string
   low_24h: number
+  market_data?: ICoingeckoMarketData
   market_cap: number
   market_cap_change_24h: number
   market_cap_change_percentage_24h: number

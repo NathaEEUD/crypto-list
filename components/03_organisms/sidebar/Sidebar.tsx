@@ -2,7 +2,7 @@ import { VStack, Box, BoxProps, PropsOf, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 import { motion } from 'framer-motion'
 
-import { useGetCoinMarkets } from 'features/coins'
+import { CoinUtility, useGetCoin, useGetCoinMarkets } from 'features/coins'
 import { SidebarItem } from '@molecules'
 import { useApp } from '@services'
 
@@ -29,10 +29,26 @@ const variants = {
 type Props = PropsOf<typeof Box>
 
 export const Sidebar: React.FC<Props> = props => {
-  const { data } = useGetCoinMarkets()
+  // App context
   const { state, dispatch } = useApp()
 
+  // Get the list of the coin markets
+  const { data: coinMarkets, isSuccess } = useGetCoinMarkets()
+
+  // Get the media query for screens widder than 768px
   const [mqWidderThan768] = useMediaQuery(['(min-width: 768px)'])
+
+  // Verify if the selected coin data is in cache
+  const coinIdExistsInMarkets =
+    isSuccess && coinMarkets && CoinUtility.getByID(state.coinId, coinMarkets)
+
+  // Disable the query if the is encountered in cache, else execute the query
+  const { data: coinData } = useGetCoin(
+    state.coinId,
+    !Boolean(coinIdExistsInMarkets),
+  )
+
+  const coins = coinIdExistsInMarkets ? coinMarkets : [coinData]
 
   /**
    * Handle sidebar item on click to update the app context with the selected coin id
@@ -61,12 +77,12 @@ export const Sidebar: React.FC<Props> = props => {
       {...props}
     >
       <VStack as="ul" h="inherit" spacing="4" w="inherit">
-        {data &&
-          data?.length > 0 &&
-          data.map(coin => (
+        {coins &&
+          coins?.length > 0 &&
+          coins.map(coin => (
             <SidebarItem
-              key={coin.id}
-              selected={coin.id === state.coinId}
+              key={coin?.id}
+              selected={coin?.id === state.coinId}
               onClick={handleOnClick}
               {...coin}
             />

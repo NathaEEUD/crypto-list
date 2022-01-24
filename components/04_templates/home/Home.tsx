@@ -21,7 +21,7 @@ export const Home: React.FC<Props> = ({ data }) => {
   return (
     <Box
       as="main"
-      color="white"
+      color="whiteAlpha.800"
       h="calc(100% - 60px)"
       p="4"
       pos="fixed"
@@ -30,39 +30,55 @@ export const Home: React.FC<Props> = ({ data }) => {
       {data && (
         <>
           <StatGroup flexDirection="column" gap="4">
-            <Stat>
-              <StatLabel>Rank</StatLabel>
-              <StatNumber>{data.rank}</StatNumber>
-            </Stat>
+            {data.rank && (
+              <Stat>
+                <StatLabel>Rank</StatLabel>
+                <StatNumber>{data.rank}</StatNumber>
+              </Stat>
+            )}
 
-            <Stat>
-              <StatLabel>Name</StatLabel>
-              <StatNumber>{data.name}</StatNumber>
-            </Stat>
+            {data.name && (
+              <Stat>
+                <StatLabel>Name</StatLabel>
+                <StatNumber>{data.name}</StatNumber>
+              </Stat>
+            )}
 
-            <Stat>
-              <StatLabel>Price</StatLabel>
-              <StatNumber>{data.price}</StatNumber>
-              <StatHelpText>
-                <StatArrow type={data.change >= 0 ? 'increase' : 'decrease'} />
-                {data.change}
-              </StatHelpText>
-            </Stat>
+            {data.price && (
+              <Stat>
+                <StatLabel>Price</StatLabel>
+                <StatNumber>{data.price}</StatNumber>
+                {data.change && (
+                  <StatHelpText>
+                    <StatArrow
+                      type={data.change >= 0 ? 'increase' : 'decrease'}
+                    />
+                    {data.change}%
+                  </StatHelpText>
+                )}
+              </Stat>
+            )}
 
-            <Stat>
-              <StatLabel>Market Cap</StatLabel>
-              <StatNumber>{data.marketCap}</StatNumber>
-            </Stat>
+            {data.marketCap && (
+              <Stat>
+                <StatLabel>Market Cap</StatLabel>
+                <StatNumber>{data.marketCap}</StatNumber>
+              </Stat>
+            )}
 
-            <Stat>
-              <StatLabel>24H Volume</StatLabel>
-              <StatNumber>{data.volume}</StatNumber>
-            </Stat>
+            {data.volume && (
+              <Stat>
+                <StatLabel>24H Volume</StatLabel>
+                <StatNumber>{data.volume}</StatNumber>
+              </Stat>
+            )}
 
-            <Stat>
-              <StatLabel>Circulating Supply</StatLabel>
-              <StatNumber>{data.supply}</StatNumber>
-            </Stat>
+            {data.supply && (
+              <Stat>
+                <StatLabel>Circulating Supply</StatLabel>
+                <StatNumber>{data.supply}</StatNumber>
+              </Stat>
+            )}
           </StatGroup>
 
           <Heading

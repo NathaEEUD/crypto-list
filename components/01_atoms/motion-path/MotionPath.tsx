@@ -9,13 +9,13 @@ interface Props {
   d?: string
   variants: keyable
   transition?: keyable
+  stroke?: string
 }
 
 export const MotionPath: React.FC<Props> = props => {
   return (
     <motion.path
       fill="transparent"
-      stroke="hsl(0, 0%, 100%)"
       strokeLinecap="round"
       strokeWidth="1"
       {...props}
